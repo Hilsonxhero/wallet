@@ -1,0 +1,7 @@
+{
+    "User": true,
+    "Payment": true,
+    "Common": true,
+    "Gateway": true,
+    "Wallet": true
+}
