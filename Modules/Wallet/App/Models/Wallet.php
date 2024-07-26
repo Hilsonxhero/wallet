@@ -4,7 +4,7 @@ namespace Modules\Wallet\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Wallet\Database\factories\WalletFactory;
+use Modules\Payment\App\Models\Transaction;
 
 class Wallet extends Model
 {
@@ -20,4 +20,10 @@ class Wallet extends Model
         "slug",
         "status"
     ];
+
+
+    public function transactions()
+    {
+        return $this->morphMany(Transaction::class, "transactionable")->orderByDesc('created_at');
+    }
 }

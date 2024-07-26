@@ -10,7 +10,7 @@ export default {
         },
         {
             path: "checkout/confirmation/payment/:id",
-            name: "purchase-paypal",
+            name: "checkout-confirmation",
             component: () => import("@/Pages/checkout/confirmation.vue"),
         },
     ],

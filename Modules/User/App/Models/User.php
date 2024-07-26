@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Modules\Wallet\App\Models\UserWallet;
 use Modules\Wallet\App\Models\Wallet;
 
 class User extends Authenticatable
@@ -48,8 +49,13 @@ class User extends Authenticatable
     }
 
 
+    // public function wallets()
+    // {
+    //     return $this->belongsToMany(Wallet::class, 'user_wallets');
+    // }
+
     public function wallets()
     {
-        return $this->belongsToMany(Wallet::class, 'user_wallets');
+        return $this->hasMany(UserWallet::class);
     }
 }

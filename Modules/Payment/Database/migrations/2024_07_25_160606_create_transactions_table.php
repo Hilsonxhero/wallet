@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained("users")->cascadeOnDelete();
-            $table->string("transaction_type")->nullable();
-            $table->integer("transaction_id")->nullable();
+            $table->string("transactionable_type")->nullable();
+            $table->integer("transactionable_id")->nullable();
             $table->decimal("amount", $precision = 34, $scale = 4);
             $table->decimal("from", $precision = 34, $scale = 4)->nullable();
             $table->decimal("to", $precision = 34, $scale = 4)->nullable();

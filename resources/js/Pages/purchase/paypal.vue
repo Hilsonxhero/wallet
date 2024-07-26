@@ -62,12 +62,13 @@ const handleCallbackStatus = async (status) => {
             success: status,
         }
     );
-    console.log("data.data", data.data);
 
     window.location.replace(data.data);
 };
 
 onMounted(() => {
+    console.log("hereee");
+
     fetchWalelt();
 });
 </script>

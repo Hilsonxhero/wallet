@@ -3,6 +3,7 @@
 namespace Modules\Wallet\App\resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Payment\App\resources\TransactionResource;
 
 class WalletResource extends JsonResource
 {
@@ -20,7 +21,8 @@ class WalletResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->description,
             'status' => $this->status,
-            'balance' => !is_null($exists_wallet) ? $exists_wallet->balance : 0
+            'transactions' => TransactionResource::collection($this->transactions()->where('user_id', auth()->id())->get()),
+            'balance' => !is_null($exists_wallet) ? round($exists_wallet->balance) : 0
         );
     }
 }
