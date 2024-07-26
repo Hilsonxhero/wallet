@@ -14,6 +14,7 @@ Route::prefix('application')->group(function () {
 
         Route::get("wallets", [UserWalletController::class, 'index']);
         Route::get("wallets/{id}", [UserWalletController::class, 'show']);
+        Route::post("wallets/credit/{id}", [UserWalletController::class, 'credit']);
     });
     Route::prefix('auth')->group(function () {
         Route::post("register", [RegisteredUserController::class, 'store']);

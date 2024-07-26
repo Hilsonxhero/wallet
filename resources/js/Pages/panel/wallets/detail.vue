@@ -59,23 +59,13 @@
                     <v-row dense>
                         <v-col cols="12" md="12" sm="12">
                             <v-text-field
-                                label="First name*"
                                 required
+                                class="text-center"
+                                type="number"
+                                label="مقدار*"
                             ></v-text-field>
                         </v-col>
-
-                        <v-col cols="12" sm="12">
-                            <v-select
-                                :items="['0-17', '18-29', '30-54', '54+']"
-                                label="Age*"
-                                required
-                            ></v-select>
-                        </v-col>
                     </v-row>
-
-                    <small class="text-caption text-medium-emphasis"
-                        >*indicates required field</small
-                    >
                 </v-card-text>
 
                 <v-divider></v-divider>
@@ -84,12 +74,12 @@
                     <div>
                         <v-btn
                             color="primary"
-                            text="Save"
+                            text="ادامه"
                             variant="tonal"
-                            @click="recharge_wallet_visible = false"
+                            @click="handleCredit"
                         ></v-btn>
                         <v-btn
-                            text="Close"
+                            text="لغو"
                             variant="plain"
                             @click="recharge_wallet_visible = false"
                         ></v-btn>
@@ -114,6 +104,14 @@ const fetchWalelt = async () => {
     wallet.value = data.data;
 };
 const recharge_wallet_visible = ref(false);
+
+const handleCredit = async () => {
+    const { data } = await ApiService.post(
+        `application/user/wallets/credit/${route.params.id}`
+    );
+
+    window.location.replace(data.data);
+};
 
 onMounted(() => {
     fetchWalelt();

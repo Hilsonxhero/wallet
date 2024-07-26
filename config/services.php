@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'gateways' => [
+        'paypal' => [
+            'PurchaseUrl' => env('PAYPAL_PURCHASE'),
+            'callbackUrl' => env('PAYPAL_CALLBACK'),
+            'id' => env('PAYPAL_ID'),
+        ],
+    ]
+
 ];

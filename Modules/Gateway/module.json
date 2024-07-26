@@ -7,5 +7,10 @@
     "providers": [
         "Modules\\Gateway\\App\\Providers\\GatewayServiceProvider"
     ],
-    "files": []
+    "aliases": {
+        "Payment": "Modules\\Gateway\\Facades\\Payment"
+    },
+    "files": [
+        "Helpers/helpers.php"
+    ]
 }

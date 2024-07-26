@@ -1,10 +1,15 @@
 <?php
 
 
-function front_path($path, $param = [])
+function front_path($path, $param = [], $route = false)
 {
-    $base = getenv("FRONT_ENDPOINT");
-    return $base . $path . "?" . http_build_query($param);
+    if ($route) {
+        $base = $path;
+        return $base  . "?" . http_build_query($param);
+    } else {
+        $base = getenv("FRONT_ENDPOINT");
+        return $base . $path . "?" . http_build_query($param);
+    }
 }
 
 
