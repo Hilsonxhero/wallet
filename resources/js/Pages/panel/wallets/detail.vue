@@ -316,7 +316,13 @@ const handleCredit = async () => {
     window.location.replace(data.data);
 };
 const handleWithdraw = async () => {
-    if (Number(form.value.withdraw_amount) > Number(wallet.value.balance)) {
+    console.log(Number(form.value.withdraw_amount));
+    console.log(Number(wallet.value.balance));
+
+    if (
+        Number(form.value.withdraw_amount) > Number(wallet.value.balance) ||
+        Number(form.value.withdraw_amount) == 0
+    ) {
         withdraw_alert.value = true;
     } else {
         const { data } = await ApiService.post(
@@ -335,7 +341,10 @@ const handleWithdraw = async () => {
     }
 };
 const handleTransfer = async () => {
-    if (Number(form.value.transfer_amount) > Number(wallet.value.balance)) {
+    if (
+        Number(form.value.transfer_amount) > Number(wallet.value.balance) ||
+        Number(form.value.transfer_amount) == 0
+    ) {
         withdraw_alert.value = true;
     } else {
         const { data } = await ApiService.post(

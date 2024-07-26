@@ -7,11 +7,21 @@
                 <v-card-text>
                     <div></div>
 
-                    <p
-                        class="text-xl text-center text-green-700 font-weight-black mt-3"
-                    >
-                        پرداخت موفقیت آمیز
-                    </p>
+                    <template v-if="form?.status == 'success'">
+                        <p
+                            class="text-xl text-center text-green-700 font-weight-black mt-3"
+                        >
+                            پرداخت موفقیت آمیز
+                        </p>
+                    </template>
+
+                    <template v-else>
+                        <p
+                            class="text-xl text-center text-red-600 font-weight-black mt-3"
+                        >
+                            پرداخت ناموفق
+                        </p>
+                    </template>
 
                     <div class="d-flex justify-space-between py-3 mt-3">
                         <span class="text-medium-emphasis"> کد پیگیری‌ </span>

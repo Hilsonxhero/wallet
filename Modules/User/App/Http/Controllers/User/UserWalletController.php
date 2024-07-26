@@ -33,8 +33,7 @@ class UserWalletController extends ApiController
         $wallet = walletRepo()->find($id);
         try {
             $amount = $request->input('amount');
-            $purchase_url = Payment::purchase($amount, function ($driver, $transactionId) use ($amount, $user, $wallet) {
-
+            $purchase_url = Payment::via($wallet->type)->purchase($amount, function ($driver, $transactionId) use ($amount, $user, $wallet) {
                 $invoice = Invoice::query()->create([
                     "user_id" => $user->id,
                     "invoiceable_type" => get_class($wallet),
@@ -128,7 +127,7 @@ class UserWalletController extends ApiController
                 ]);
             } else {
                 $recevier_prev_balance = $recevier_wallet_exists->balance;
-                $wallet_exists->increment('balance', $request->amount);
+                $recevier_wallet_exists->increment('balance', $request->amount);
             }
             transactionRepo()->create([
                 "user_id" => $recevier_user->id,

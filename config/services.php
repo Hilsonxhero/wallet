@@ -41,6 +41,19 @@ return [
             'callbackUrl' => env('PAYPAL_CALLBACK'),
             'id' => env('PAYPAL_ID'),
         ],
+
+        'perfectmoney' => [
+            'PurchaseUrl' => env('PERFECT_PURCHASE'),
+            'callbackUrl' => env('PERFECT_CALLBACK'),
+            'id' => env('PERFECT_ID'),
+        ],
+        'webmoney' => [
+            'PurchaseUrl' => env('WEBMONEY_PURCHASE'),
+            'callbackUrl' => env('WEBMONEY_CALLBACK'),
+            'id' => env('WEBMONEY_ID'),
+        ],
+
+
     ]
 
 ];
