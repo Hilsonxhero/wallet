@@ -3,7 +3,7 @@ export default {
     meta: {
         middleware: "auth",
     },
-    component: () => import("@/Layouts/Management.vue"),
+    component: () => import("@/Layouts/Panel.vue"),
     children: [
         {
             path: "dashboard",
@@ -11,6 +11,10 @@ export default {
             component: () => import("@/Pages/panel/dashboard.vue"),
         },
 
-
+        {
+            path: "wallets/:id",
+            name: "panel-wallets-detail",
+            component: () => import("@/Pages/panel/wallets/detail.vue"),
+        },
     ],
 };

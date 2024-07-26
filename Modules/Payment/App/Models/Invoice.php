@@ -19,6 +19,7 @@ class Invoice extends Model
         "invoiceable_type",
         "invoiceable_id",
         "amount",
+        "description"
     ];
 
     public function user()

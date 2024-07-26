@@ -16,6 +16,10 @@ class WalletRepositoryEloquent implements WalletRepository
 
             ->get();
     }
+    public function getActiveWallets()
+    {
+        return Wallet::orderBy('created_at', 'desc')->where('status', WalletStatus::ACTIVE->value)->get();
+    }
 
     public function create($data)
     {

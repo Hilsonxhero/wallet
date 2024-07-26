@@ -1,9 +1,20 @@
 <template>
     <div>
+        <div class="py-4">
+            <!-- <v-alert title="Alert title" type="error"></v-alert> -->
+            <template v-for="(message, index) in validation_errors">
+                <div class="mb-2">
+                    <v-alert border="end" border-color="error" elevation="2">
+                        {{ message }}
+                    </v-alert>
+                </div>
+            </template>
+        </div>
         <v-sheet>
             <div class="mb-6">
                 <h2 class="text-xl">ایجاد کیف پول</h2>
             </div>
+
             <v-form
                 ref="formRef"
                 validate-on="submit"
@@ -67,12 +78,13 @@ const types = ref([
     { state: "webmoney", value: "webmoney" },
     { state: "perfectmoney", value: "perfectmoney" },
 ]);
+const validation_errors = ref([]);
 const loading = ref(false);
 const formRef = ref(null);
 const form = ref({
-    name: null,
-    description: null,
-    type: null,
+    name: "",
+    description: "",
+    type: "paypal",
 });
 const visible_success_message = ref(false);
 const rules = ref([
@@ -93,10 +105,24 @@ const handleCreate = async (event) => {
         form_data.append("name", form.value.name);
         form_data.append("description", form.value.description);
         form_data.append("type", form.value.type);
-        const { data } = await ApiService.post(`management/wallets`, form_data);
-        if (data.status == 200) {
-            visible_success_message.value = true;
-            router.push({ name: "management-wallets-index" });
+
+        try {
+            const { data } = await ApiService.post(
+                `management/wallets`,
+                form_data
+            );
+            if (data.status == 200) {
+                visible_success_message.value = true;
+                router.push({ name: "management-wallets-index" });
+            }
+            loading.value = false;
+        } catch (error) {
+            validation_errors.value = [];
+            Object.values(error.response.data.data).forEach((message) => {
+                validation_errors.value.push(message[0]);
+            });
+
+            loading.value = false;
         }
     }
 };

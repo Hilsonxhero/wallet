@@ -5,6 +5,7 @@ namespace Modules\Wallet\Repository\Contracts;
 interface WalletRepository
 {
     public function get();
+    public function getActiveWallets();
     public function create($data);
     public function update($id, $data);
     public function find($id);
