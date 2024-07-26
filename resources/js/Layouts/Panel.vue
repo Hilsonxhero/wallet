@@ -11,8 +11,8 @@
                     <v-list-item
                         lines="two"
                         prepend-avatar="/panel/media/avatars/blank.png"
-                        :title="user?.username"
-                        subtitle="کاربر ادمین"
+                        :title="user?.email"
+                        subtitle="کاربر "
                     ></v-list-item>
                 </template>
             </template>
