@@ -3,8 +3,10 @@
 namespace Modules\Payment\App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Modules\Payment\Repository\Contracts\InvoiceRepository;
 use Modules\Payment\Repository\Contracts\PaymentRepository;
 use Modules\Payment\Repository\Contracts\TransactionRepository;
+use Modules\Payment\Repository\Eloquent\InvoiceRepositoryEloquent;
 use Modules\Payment\Repository\Eloquent\PaymentRepositoryEloquent;
 use Modules\Payment\Repository\Eloquent\TransactionRepositoryEloquent;
 
@@ -29,5 +31,6 @@ class PaymentRepoServiceProvider extends ServiceProvider
     {
         $this->app->bind(PaymentRepository::class, PaymentRepositoryEloquent::class);
         $this->app->bind(TransactionRepository::class, TransactionRepositoryEloquent::class);
+        $this->app->bind(InvoiceRepository::class, InvoiceRepositoryEloquent::class);
     }
 }

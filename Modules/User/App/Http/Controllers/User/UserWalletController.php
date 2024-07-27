@@ -55,7 +55,8 @@ class UserWalletController extends ApiController
         try {
             $amount = $request->input('amount');
             $purchase_url = Payment::via($wallet->type)->purchase($amount, function ($driver, $transactionId) use ($amount, $user, $wallet) {
-                $invoice = Invoice::query()->create([
+
+                $invoice = invoiceRepo()->create([
                     "user_id" => $user->id,
                     "invoiceable_type" => get_class($wallet),
                     "invoiceable_id" => $wallet->id,
