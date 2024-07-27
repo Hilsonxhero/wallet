@@ -274,6 +274,19 @@
                 </v-btn>
             </template>
         </v-snackbar>
+        <v-snackbar v-model="credit_alert">
+            مبلغ غیرمجاز
+
+            <template v-slot:actions>
+                <v-btn
+                    color="pink"
+                    variant="text"
+                    @click="credit_alert = false"
+                >
+                    بستن
+                </v-btn>
+            </template>
+        </v-snackbar>
     </div>
 </template>
 
@@ -294,6 +307,7 @@ const fetchWalelt = async () => {
 const success_withdraw = ref(false);
 const withdraw_alert = ref(false);
 const user_exists_alert = ref(false);
+const credit_alert = ref(false);
 
 const form = ref({
     amount: 0,
@@ -306,19 +320,20 @@ const withdraw_wallet_visible = ref(false);
 const transfer_wallet_visible = ref(false);
 
 const handleCredit = async () => {
-    const { data } = await ApiService.post(
-        `application/user/wallets/credit/${route.params.id}`,
-        {
-            amount: form.value.amount,
-        }
-    );
+    if (Number(form.value.amount) == 0) {
+        credit_alert.value = true;
+    } else {
+        const { data } = await ApiService.post(
+            `application/user/wallets/credit/${route.params.id}`,
+            {
+                amount: form.value.amount,
+            }
+        );
 
-    window.location.replace(data.data);
+        window.location.replace(data.data);
+    }
 };
 const handleWithdraw = async () => {
-    console.log(Number(form.value.withdraw_amount));
-    console.log(Number(wallet.value.balance));
-
     if (
         Number(form.value.withdraw_amount) > Number(wallet.value.balance) ||
         Number(form.value.withdraw_amount) == 0

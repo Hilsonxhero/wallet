@@ -93,13 +93,13 @@ class UserWalletController extends ApiController
 
         $wallet = walletRepo()->find($id);
 
-        $wallet_exists = $user->wallets()->where('wallet_id', $wallet->id)->first();
+        $wallet_exists = userRepo()->walletExistsForUser($user, $wallet);
 
         if ($request->amount > 0 && !is_null($wallet_exists)) {
 
             $prev_balance = $wallet_exists->balance;
 
-            $wallet_exists->decrement('balance', $request->amount);
+            userRepo()->decrementWalletBalance($wallet_exists, $request->amount);
 
             transactionRepo()->create([
                 "user_id" => $user->id,
@@ -136,13 +136,13 @@ class UserWalletController extends ApiController
 
         $wallet = walletRepo()->find($id);
 
-        $wallet_exists = $user->wallets()->where('wallet_id', $wallet->id)->first();
+        $wallet_exists = userRepo()->walletExistsForUser($user, $wallet);
 
         if ($request->amount > 0 && !is_null($wallet_exists)) {
 
             $prev_balance = $wallet_exists->balance;
 
-            $wallet_exists->decrement('balance', $request->amount);
+            userRepo()->decrementWalletBalance($wallet_exists, $request->amount);
 
             transactionRepo()->create([
                 "user_id" => $user->id,
@@ -154,7 +154,8 @@ class UserWalletController extends ApiController
                 "type" => TransactionType::DECREMENT->value,
             ]);
 
-            $recevier_wallet_exists = $recevier_user->wallets()->where('wallet_id', $wallet->id)->first();
+            $recevier_wallet_exists = userRepo()->walletExistsForUser($recevier_user, $wallet);
+
             $recevier_prev_balance = 0;
             if (is_null($recevier_wallet_exists)) {
                 $recevier_user->wallets()->create([
@@ -163,7 +164,7 @@ class UserWalletController extends ApiController
                 ]);
             } else {
                 $recevier_prev_balance = $recevier_wallet_exists->balance;
-                $recevier_wallet_exists->increment('balance', $request->amount);
+                userRepo()->incrementWalletBalance($recevier_wallet_exists, $request->amount);
             }
             transactionRepo()->create([
                 "user_id" => $recevier_user->id,
