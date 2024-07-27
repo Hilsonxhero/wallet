@@ -18,9 +18,9 @@ composer install
 
 ./vendor/bin/sail artisan storage:link
 
-./vendor/bin/sail artisan passport:install
-
 ./vendor/bin/sail artisan migrate
+
+./vendor/bin/sail php artisan passport:client --personal
 
 ./vendor/bin/sail npm i
 
