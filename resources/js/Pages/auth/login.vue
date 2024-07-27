@@ -49,6 +49,15 @@
             >
                 ورود
             </v-btn>
+
+            <v-card-text class="text-center">
+                <router-link
+                    :to="{ name: 'auth-register' }"
+                    class="text-blue text-decoration-none"
+                >
+                    <v-icon icon="mdi-chevron-right"></v-icon> ثبت نام
+                </router-link>
+            </v-card-text>
         </v-card>
         <v-snackbar :timeout="2000" v-model="snackbar_message">
             ایمیل و یا رمز عبور نادرست است.

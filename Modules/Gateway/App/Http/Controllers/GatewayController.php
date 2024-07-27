@@ -3,21 +3,32 @@
 namespace Modules\Gateway\App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Modules\Gateway\App\resources\GatewayResource;
-use Modules\Common\App\Http\Controllers\Api\ApiController;
+use Illuminate\Http\JsonResponse;
 use Modules\Gateway\Enums\GatewayStatus;
 use Modules\Payment\Enums\PaymentStatus;
 use Modules\Payment\Enums\TransactionType;
+use Modules\Gateway\App\resources\GatewayResource;
+use Modules\Common\App\Http\Controllers\Api\ApiController;
 
 class GatewayController extends ApiController
 {
-    public function show($id)
+    /**
+     * Show the specified gateway.
+     * @param mixed $id
+     */
+    public function show($id): JsonResponse
     {
         $item = gatewayRepo()->find($id, "ref_code");
         $item = new GatewayResource($item);
         return  $this->successResponse($item);
     }
-    public function status(Request $request, $id)
+    /**
+     * Update the status of a gateway payment.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     */
+    public function status(Request $request, $id): JsonResponse
     {
         $status = GatewayStatus::FAILED->value;
 
@@ -35,7 +46,13 @@ class GatewayController extends ApiController
         return $this->successResponse($callback);
     }
 
-
+    /**
+     * Verify the status of a payment after gateway.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $type
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function callback(Request $request, $type)
     {
         $payment = paymentRepo()->find($request->ref_code, "bank_ref_id");

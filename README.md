@@ -24,7 +24,7 @@ composer install
 
 ```
 
-### env data
+### ENV DATA
 
 ```sh
 # passport personal type

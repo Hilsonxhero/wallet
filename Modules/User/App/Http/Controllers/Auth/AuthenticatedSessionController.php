@@ -5,9 +5,7 @@ namespace Modules\User\App\Http\Controllers\Auth;
 
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Modules\User\App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
 use Modules\User\App\resources\UserResource;
@@ -57,6 +55,12 @@ class AuthenticatedSessionController extends ApiController
         }
     }
 
+    /**
+     * Initialize the user session and return the authenticated user's details.
+     *
+     * @param Request $request The HTTP request object.
+     * @return UserResource The resource containing the authenticated user's details.
+     */
     public function init(Request $request)
     {
         return new UserResource(auth()->user());
@@ -64,7 +68,7 @@ class AuthenticatedSessionController extends ApiController
 
 
     /**
-     * Destroy an authenticated session.
+     * Destroy an authenticated token.
      */
     public function logout(Request $request)
     {

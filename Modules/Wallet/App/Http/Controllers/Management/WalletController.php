@@ -10,13 +10,17 @@ use Modules\Wallet\App\resources\WalletResource;
 use Modules\Common\App\Http\Controllers\Api\ApiController;
 use Modules\Wallet\App\Http\Requests\Management\WalletRequest;
 
+
+
 class WalletController extends ApiController
 {
 
     /**
-     * Display a listing of the resource.
+     * Display a list of all wallets.
+     *
+     * @return JsonResponse The response containing the list of all wallets.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $items = walletRepo()->get();
         $items = WalletResource::collection($items);
@@ -24,9 +28,12 @@ class WalletController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created wallet in storage.
+     *
+     * @param WalletRequest $request The HTTP request object containing wallet details.
+     * @return JsonResponse The response indicating the result of the store operation.
      */
-    public function store(WalletRequest $request)
+    public function store(WalletRequest $request): JsonResponse
     {
         try {
             $item = walletRepo()->create([
@@ -43,18 +50,25 @@ class WalletController extends ApiController
     }
 
     /**
-     * Show the specified resource.
+     * Display the specified wallet.
+     *
+     * @param int $id The ID of the wallet to be displayed.
+     * @return JsonResponse The response containing the wallet details.
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $item = walletRepo()->find($id);
         return $this->successResponse($item);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified wallet in storage.
+     *
+     * @param WalletRequest $request The HTTP request object containing updated wallet details.
+     * @param int $id The ID of the wallet to be updated.
+     * @return JsonResponse The response indicating the result of the update operation.
      */
-    public function update(WalletRequest $request, $id)
+    public function update(WalletRequest $request, $id): JsonResponse
     {
         $item = walletRepo()->update($id, [
             "name" => $request->input("name"),
@@ -66,10 +80,14 @@ class WalletController extends ApiController
         return $this->successResponse($item, trans('response.responses.200'));
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified wallet from storage.
+     *
+     * @param int $id The ID of the wallet to be deleted.
+     * @return JsonResponse The response indicating the result of the delete operation.
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $item = walletRepo()->delete($id);
         return $this->successResponse(trans('response.responses.200'));

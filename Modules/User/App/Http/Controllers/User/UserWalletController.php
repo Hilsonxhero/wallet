@@ -3,6 +3,7 @@
 namespace Modules\User\App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Modules\Gateway\Facades\Payment;
 use Modules\Payment\App\Models\Invoice;
 use Modules\Payment\Enums\PaymentStatus;
@@ -12,7 +13,13 @@ use Modules\Common\App\Http\Controllers\Api\ApiController;
 
 class UserWalletController extends ApiController
 {
-    public function index(Request $request)
+    /**
+     * Display a list of all wallets.
+     *
+     * @param Request $request The HTTP request object containing any query parameters or filters.
+     * @return JsonResponse The response containing the list of all wallets.
+     */
+    public function index(Request $request): JsonResponse
     {
         $wallets = walletRepo()->getActiveWallets();
 
@@ -21,13 +28,27 @@ class UserWalletController extends ApiController
         return  $this->successResponse($wallets);
     }
 
-    public function show($id)
+    /**
+     * Display the details of a specific wallet.
+     *
+     * @param int $id The ID of the wallet to be displayed.
+     * @return JsonResponse The response containing the wallet details.
+     */
+    public function show($id): JsonResponse
     {
         $wallet = walletRepo()->find($id);
         $wallet = new WalletResource($wallet);
         return  $this->successResponse($wallet);
     }
-    public function credit(Request $request, $id)
+
+    /**
+     * Handle the request to increase the wallet balance.
+     *
+     * @param Request $request The HTTP request object containing the details of the increase.
+     * @param int $id The ID of the  wallet where the balance is to be increased.
+     * @return JsonResponse The response indicating the result of the increase operation.
+     */
+    public function credit(Request $request, $id): JsonResponse
     {
         $user = auth()->user();
         $wallet = walletRepo()->find($id);
@@ -58,7 +79,15 @@ class UserWalletController extends ApiController
         }
     }
 
-    public function withdraw(Request $request, $id)
+
+    /**
+     * Handle the request to withdraw an amount from the wallet balance.
+     *
+     * @param Request $request The HTTP request object containing withdrawal details.
+     * @param int $id The ID of the  wallet from which the withdrawal is to be made.
+     * @return JsonResponse The response indicating the result of the withdrawal operation.
+     */
+    public function withdraw(Request $request, $id): JsonResponse
     {
         $user = auth()->user();
 
@@ -88,7 +117,14 @@ class UserWalletController extends ApiController
         }
     }
 
-    public function transfer(Request $request, $id)
+    /**
+     * Handle the request to transfer an amount between user wallets.
+     *
+     * @param Request $request The HTTP request object containing transfer details.
+     * @param int $id The ID of the wallet initiating the transfer.
+     * @return JsonResponse The response indicating the result of the transfer operation.
+     */
+    public function transfer(Request $request, $id): JsonResponse
     {
         $user = auth()->user();
 

@@ -2,12 +2,17 @@
 
 namespace Modules\Payment\App\Http\Controllers;
 
-use Modules\Common\App\Http\Controllers\Api\ApiController;
+use Illuminate\Http\JsonResponse;
 use Modules\Payment\App\resources\PaymentResource;
+use Modules\Common\App\Http\Controllers\Api\ApiController;
 
 class PaymentController extends ApiController
 {
-    public function confirmation($id)
+    /**
+     * Show the payment detail.
+     * @param mixed $id
+     */
+    public function confirmation($id): JsonResponse
     {
         $payment = paymentRepo()->find($id, "reference_code");
         $payment = new PaymentResource($payment);

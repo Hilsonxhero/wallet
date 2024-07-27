@@ -2,6 +2,7 @@
 
 namespace Modules\User\App\Http\Controllers\Auth;
 
+use Illuminate\Http\JsonResponse;
 use Modules\User\App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
@@ -11,8 +12,13 @@ use Modules\Common\App\Http\Controllers\Api\ApiController;
 class RegisteredUserController extends ApiController
 {
 
-
-    public function store(RegisterRequest $request)
+    /**
+     * Handle the registration of a new user.
+     *
+     * @param RegisterRequest $request The HTTP request object containing the registration details.
+     * @return JsonResponse The response containing the registered user details and access token.
+     */
+    public function store(RegisterRequest $request): JsonResponse
     {
         $user = User::create([
             'name' => $request->email,
@@ -22,9 +28,7 @@ class RegisteredUserController extends ApiController
 
         // event(new Registered($user));
 
-
         $token = $user->createToken('accessToken')->accessToken;
-
 
         Cookie::queue(
             'access_token',
