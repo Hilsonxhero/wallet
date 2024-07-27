@@ -346,12 +346,13 @@ const handleWithdraw = async () => {
                 amount: form.value.withdraw_amount,
             }
         );
-        if (data.status == "200") {
+        if (data.status == "200" && data.data) {
             wallet.value = data.data;
             tableData.value = wallet.value.transactions;
             withdraw_wallet_visible.value = false;
             success_withdraw.value = true;
         } else {
+            withdraw_alert.value = true;
         }
     }
 };

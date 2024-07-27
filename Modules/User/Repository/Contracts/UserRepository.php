@@ -16,4 +16,5 @@ interface UserRepository
     public function walletExistsForUser(User $user, Wallet $wallet): ?UserWallet;
     public function decrementWalletBalance(UserWallet $wallet, int $amount): bool;
     public function incrementWalletBalance(UserWallet $wallet, int $amount): bool;
+    public function checkValidWithdrawAmount(UserWallet $wallet, int $amount): bool;
 }

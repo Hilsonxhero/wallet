@@ -98,6 +98,10 @@ class UserWalletController extends ApiController
 
         if ($request->amount > 0 && !is_null($wallet_exists)) {
 
+            if (!userRepo()->checkValidWithdrawAmount($wallet_exists, $request->amount)) {
+                return $this->successResponse(false);
+            }
+
             $prev_balance = $wallet_exists->balance;
 
             userRepo()->decrementWalletBalance($wallet_exists, $request->amount);

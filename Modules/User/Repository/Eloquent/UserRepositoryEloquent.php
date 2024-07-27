@@ -126,4 +126,20 @@ class UserRepositoryEloquent implements UserRepository
         // Return true to indicate the operation was successful
         return true;
     }
+
+
+    /**
+     * Check if the requested amount is less than or equal to the user's wallet balance.
+     *
+     * @param UserWallet $wallet The wallet whose balance is to be incremented.
+     * @param int $amount The amount to check against the wallet balance.
+     * @return bool True if the amount is less than or equal to the wallet balance, false otherwise.
+     */
+    public function checkValidWithdrawAmount(UserWallet $wallet, int $amount): bool
+    {
+        if ($wallet->balance > $amount) {
+            return true;
+        }
+        return false;
+    }
 }
