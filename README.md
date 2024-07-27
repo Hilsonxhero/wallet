@@ -26,6 +26,10 @@ composer install
 
 ```
 
+```
+After creating your personal access client, place the client's ID and plain-text secret value in your application's .env file:
+```
+
 ### ENV DATA
 
 ```sh
