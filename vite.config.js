@@ -8,7 +8,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/js/app.css',
+                // 'resources/js/app.css',
                 'resources/js/app.js',
             ],
             refresh: true,
@@ -36,11 +36,11 @@ export default defineConfig({
             usePolling: true
         }
     },
-    build: {
-        manifest: true,
-        outDir: 'public/build',
-        rollupOptions: {
-            input: 'resources/js/app.js',
-        },
-    },
+    // build: {
+    //     manifest: true,
+    //     outDir: 'public/build',
+    //     rollupOptions: {
+    //         input: 'resources/js/app.js',
+    //     },
+    // },
 });
