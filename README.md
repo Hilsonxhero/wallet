@@ -20,6 +20,8 @@ composer install
 
 ./vendor/bin/sail artisan migrate
 
+./vendor/bin/sail artisan passport:keys
+
 ./vendor/bin/sail php artisan passport:client --personal
 
 ./vendor/bin/sail npm i
